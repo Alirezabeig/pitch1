@@ -29,12 +29,29 @@ class PlaySoundViewController: UIViewController{
         case slow = 0, fast, chipmunk, vader, echo, reverb
     }
     
-    @IBAction func playSound(_ sender: UIButton){
-        print("playing any sound")
+    @IBAction func playSoundForButton(_ sender: UIButton){
+        switch(ButtonType(rawValue: sender.tag)!) {
+            case .slow:
+                playSound(rate: 0.5)
+            case .fast:
+                playSound(rate: 1.5)
+            case .chipmunk:
+                playSound(pitch: 1000)
+            case .vader:
+                playSound(pitch: -1000)
+            case .echo:
+                playSound(echo: true)
+            case .reverb:
+                playSound(reverb: true)
+            }
+
+            configureUI(.playing)
+        
+        
     }
     
-    @IBAction func stopSound(_ sender: AnyObject){
-        print ("Stop Sound works")
+    @IBAction func stopSoundForButton(_ sender: AnyObject){
+        stopAudio()
     }
     
     override func viewDidLoad() {
