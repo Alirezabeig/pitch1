@@ -29,7 +29,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     
     @IBAction func recordAudio(_ sender: UIButton) {
         
-        recordings()
+        recordings(true)
         
         
         let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory,.userDomainMask,true)[0] as String
@@ -51,7 +51,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     
     
     @IBAction func stopRecording(_ sender: UIButton) {
-        recordings()
+        recordings(false)
         
         
         audioRecorder.stop()
@@ -78,16 +78,10 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         }
     }
     
-    func recordings() {
-        if  (stopRecordingButton.isEnabled == false) {
-            stopRecordingButton.isEnabled = true
-            recordButton.isEnabled = false
-            recordingLabel.text = "Recording in progress"
-        } else {
-            stopRecordingButton.isEnabled = false
-            recordButton.isEnabled = true
-            recordingLabel.text = "Tap to Record"
-        }
+    func recordings(_ isRecording:Bool) {
+        recordingLabel.text = isRecording ? "Recording in Progress" : "Tap to Record"
+        recordButton.isEnabled = !isRecording
+        stopRecordingButton.isEnabled = isRecording
         
     }
 }
